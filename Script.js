@@ -3,15 +3,14 @@ async function sendInvitation(){
     const postnom = document.getElementById('postnom').value;
     const prenom = document.getElementById('prenom').value;
     const telephone = document.getElementById('telephone').value;
-    const pdfFile = document.getElementById('pdfFile').files[0];
 
-    if (!pdfFile){
-        alert('Veuillez telechqrger un fichier PDF.');
-        return;
+    const pdfUrl= 'https://github.com/DISANKA001/invitation/edit/main/Familles%20PEHOT%20et%20DISANKA.pdf';
+    
     }
-
+    const response = await fetch(pdfUrl);
+    const blob = await response.blob();
     const reader = new FileReader();
-    reader.readAsDataURL(pdfFile);
+    reader.readAsDataURL(blob);
     reader.onloadend = async () => {
         const base64data = reader.result.split(',')[1];
 
@@ -25,7 +24,7 @@ async function sendInvitation(){
                 to: telephone,
                 message: 'VOICI VOTRE INVITATION',
                 file: {
-                    name: pdfFile.nama,
+                    name: name : 'invitation.pdf',
                     data: base64data
                 }
             })
